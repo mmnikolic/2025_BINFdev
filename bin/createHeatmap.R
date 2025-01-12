@@ -74,6 +74,24 @@ annoColors <- list(
 ################################################
 ################################################
 
+pdf(paste0("basic_heatmap_", outprefix, ".pdf"), width = 10, height = 13)
+pheatmap(sampleData,
+         clustering_distance_rows = "euclidean",
+         clustering_distance_cols = "euclidean",
+         clustering_method = "ward.D",
+         show_rownames = TRUE,
+         show_colnames = TRUE,
+         fontsize_row = 9,
+         fontsize_col = 9,
+         main = "Basic Gene Expression Heatmap")
+dev.off()
+
+################################################
+################################################
+## Create a complex heatmap##
+################################################
+################################################
+
 quantile_breaks <- quantile(as.matrix(sampleData), probs = c(0, 1/3, 2/3, 1))
 
 pdf(paste0("complex_heatmap_", outprefix, ".pdf"), width = 13, height = 14)
@@ -96,10 +114,4 @@ pheatmap(
   main = "Complex Gene Expression Heatmap",
   fontsize = 9)
 dev.off()
-
-################################################
-################################################
-## Create a complex heatmap##
-################################################
-################################################
 
