@@ -73,10 +73,21 @@ annoColors <- list(
 ## Create a basic heatmap##
 ################################################
 ################################################
+pdf(paste0("basic_heatmap_", outprefix, ".pdf"), width = 10, height = 13)
+pheatmap(sampleData,
+         clustering_distance_rows = "euclidean",
+         clustering_distance_cols = "euclidean",
+         clustering_method = "ward.D",
+         show_rownames = TRUE,
+         show_colnames = TRUE,
+         fontsize_row = 9,
+         fontsize_col = 9,
+         main = "Gene Expression")
+dev.off()
 
+################################################
+################################################
+## Create a complex heatmap##
+################################################
+################################################
 
-################################################
-################################################
-## Create a basic heatmap##
-################################################
-################################################
