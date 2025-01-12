@@ -73,16 +73,28 @@ annoColors <- list(
 ## Create a basic heatmap##
 ################################################
 ################################################
-pdf(paste0("basic_heatmap_", outprefix, ".pdf"), width = 10, height = 13)
-pheatmap(sampleData,
-         clustering_distance_rows = "euclidean",
-         clustering_distance_cols = "euclidean",
-         clustering_method = "ward.D",
-         show_rownames = TRUE,
-         show_colnames = TRUE,
-         fontsize_row = 9,
-         fontsize_col = 9,
-         main = "Gene Expression")
+
+quantile_breaks <- quantile(as.matrix(sampleData), probs = c(0, 1/3, 2/3, 1))
+
+pdf(paste0("complex_heatmap_", outprefix, ".pdf"), width = 13, height = 14)
+pheatmap(
+  mat = sampleData,
+  clustering_distance_rows = "euclidean",
+  clustering_distance_cols = "euclidean",
+  clustering_method = "ward.D",
+  annotation_col = annoData,
+  annotation_row = geneFunctions,
+  annotation_colors = annoColors,
+  annotation_names_row = FALSE,
+  annotation_names_col = FALSE,
+  breaks = quantile_breaks,
+  legend_breaks = c(mean(quantile_breaks[1:2]), 
+                    mean(quantile_breaks[2:3]), 
+                    mean(quantile_breaks[3:4])),
+  legend_labels = c("Low", "Medium", "High"),
+  color = c("#5e7bfc", "#b88afc", "#cf381a"),
+  main = "Complex Gene Expression Heatmap",
+  fontsize = 9)
 dev.off()
 
 ################################################
